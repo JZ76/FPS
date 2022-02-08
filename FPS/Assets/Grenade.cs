@@ -26,7 +26,6 @@ public class Grenade : MonoBehaviour
         {
             Explode();
             isBoom = true;
-            Debug.Log("in");
         }
     }
 

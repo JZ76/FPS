@@ -351,10 +351,17 @@
 "Assets/Grenade.cs"
 "Assets/Low Poly Guns/Scripts/GunsMenu.cs"
 "Assets/Low Poly Guns/Scripts/GunView.cs"
+"Assets/M107.cs"
+"Assets/M1911.cs"
+"Assets/M4A1.cs"
 "Assets/Movements.cs"
 "Assets/Nokobot/Modern Guns - Handgun/_Demo Assets/SimpleShoot.cs"
 "Assets/PlayerView.cs"
 "Assets/pushObstacles.cs"
+"Assets/RPG7.cs"
+"Assets/RPGRocket.cs"
+"Assets/ThrowG.cs"
+"Assets/Weapons.cs"
 -langversion:9.0
 
 /deterministic
