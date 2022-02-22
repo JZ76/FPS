@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RPGRocket : MonoBehaviour
 {
+    public float damage = 300f;
     public GameObject explodeEffect;
     public float radius = 8f;
     public float explosionForce = 100f;
@@ -31,9 +32,31 @@ public class RPGRocket : MonoBehaviour
             {
                 rigidbody.AddExplosionForce(explosionForce, transform.position, radius);
             }
+            Controller_Zombie zombie = collider.transform.GetComponent<Controller_Zombie>();
+            if (zombie != null)
+            {
+                zombie.TakeDamage(damage);
+            }
+
+            Controller_Zombie_NavMesh zombie_nav = collider.transform.GetComponent<Controller_Zombie_NavMesh>();
+            if (zombie_nav != null)
+            {
+                zombie_nav.TakeDamage(damage);
+            }
+            
+            ChickenController chicken = collider.transform.GetComponent<ChickenController>();
+            if (chicken != null)
+            {
+                chicken.TakeDamage(damage);
+            }
+
+            Movements player = collider.transform.GetComponent<Movements>();
+            if (player != null)
+            {
+                player.TakeDamage(damage);
+            }
         }
         Destroy(Instantiate(explodeEffect, transform.position, transform.rotation), 3f);
         Destroy(gameObject);
-        
     }
 }

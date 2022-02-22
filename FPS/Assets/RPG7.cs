@@ -2,18 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class RPG7 : MonoBehaviour
 {
     public float fireForce = 100f;
 
     public GameObject RocketPrefab;
-    
+
     public GameObject fakeRocketPrefab;
 
     public int maxAmmo = 1;
-    
+
     private int currentAmmo = 1;
 
     public float reloadTime = 10f;
@@ -21,6 +20,7 @@ public class RPG7 : MonoBehaviour
     private bool isReloading = false;
 
     public Animator ReloadAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,11 +40,13 @@ public class RPG7 : MonoBehaviour
         {
             return;
         }
+
         if (currentAmmo <= 0 || Input.GetKeyDown(KeyCode.R))
         {
             StartCoroutine(Reload());
             return;
         }
+
         if (Input.GetButtonDown("Fire1"))
         {
             Launch();
@@ -57,18 +59,23 @@ public class RPG7 : MonoBehaviour
         ReloadAnimator.SetBool("isReloading", true);
         yield return new WaitForSeconds(reloadTime - 0.25f);
         ReloadAnimator.SetBool("isReloading", false);
-        GameObject fakeRocket = Instantiate(fakeRocketPrefab, new Vector3(transform.position.x,transform.position.y, transform.position.z) , transform.rotation);
+        // create a Rocket object in the RPG launcher
+        GameObject fakeRocket = Instantiate(fakeRocketPrefab,
+                                    new Vector3(transform.position.x, transform.position.y, transform.position.z), 
+                                            transform.rotation);
         fakeRocket.transform.parent = gameObject.transform;
         yield return new WaitForSeconds(0.25f);
         currentAmmo = maxAmmo;
         isReloading = false;
     }
+
     void Launch()
     {
+        // generate a new rocket and throw it
         GameObject grenade = Instantiate(RocketPrefab, transform.position, transform.rotation);
         Rigidbody ridRigidbody = grenade.GetComponent<Rigidbody>();
         ridRigidbody.AddForce(transform.forward * -fireForce, ForceMode.VelocityChange);
-        
+        // destroy the rocket on the launcher, so that looks like the rocket on the launcher actually be launched
         GameObject rocket = gameObject.transform.GetChild(0).gameObject;
         Destroy(rocket);
         currentAmmo--;
